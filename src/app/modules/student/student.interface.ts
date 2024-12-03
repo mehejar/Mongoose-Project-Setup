@@ -45,6 +45,7 @@ export type TStudent = {
 
     localGuardian?: TLocalGuardian;
     profile?: string;
+    addmissionSemester: Types.ObjectId;
     isDeleted: boolean;
 }
 

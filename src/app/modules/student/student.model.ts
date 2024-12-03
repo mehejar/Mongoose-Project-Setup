@@ -73,6 +73,7 @@ const studentSchema = new Schema<TStudent>({
     },
     localGuardian: localGuardianSchema,
     profile: { type: String },
+    addmissionSemester: { type: Schema.Types.ObjectId, required: true },
     isDeleted: { type: Boolean, default: true }
 
 })

@@ -19,6 +19,28 @@ const createAcademicSemester = catchAsync(async (req, res) => {  // ZOD Valiator
     })
 })
 
+const getAllAcademicSemester = catchAsync(async (req, res) => {
+    const result = await AcademicSemesterService.getAllSemester()
+    res.status(200).json({
+        success: true,
+        message: "All Semester is Here",
+
+        date: result
+    })
+})
+const getSingleAcademicSemester = catchAsync(async (req, res) => {
+    const semesterId = req.params._id
+    const result = await AcademicSemesterService.getASingleSemester(semesterId)
+    res.status(200).json({
+        success: true,
+        message: "Here is a Single Semester",
+
+        date: result
+    })
+})
+
 export const AcademicSemesterController = {
-    createAcademicSemester
+    createAcademicSemester,
+    getAllAcademicSemester,
+    getSingleAcademicSemester
 } 

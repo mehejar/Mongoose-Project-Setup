@@ -39,6 +39,7 @@ const studentValidationSchema = z.object({
             }),
             localGuardian: localGuardianValidationSchema.optional(),
             profile: z.string().optional(),
+            addmissionSemester: z.string(),
 
         })
     })

@@ -19,35 +19,37 @@ const createStudentIntoDB = async (password: string, payload: TStudent) => {
     // set student role 
     userData.role = 'student'
 
-    // manually generated ID
-    // userData.id = '2030100001'
-
 
     const admissionSemester = await Semester.findById(
         payload.addmissionSemester,
     );
 
+    try {
+        userData.id = await generateStudentId(admissionSemester as TAcademicSemester)
+
+        // create a user model
+        const newUser = await User.create(userData); //build in static method
+
+
+        //create a student
+        if (Object.keys(newUser).length) {
+            // set id , _id as user
+            console.log('this is New User:', newUser)
+            console.log("this is paylod:", payload)
+            payload.id = '2030100001' as string;
+            payload.user = newUser?._id; //reference _id
+
+
+
+            const newStudent = await Student.create(payload);
+            return newStudent;
+        }
+
+    } catch (err) {
+
+    }
     //set  generated id
 
-    userData.id = await generateStudentId(admissionSemester as TAcademicSemester)
-
-    // create a user model
-    const newUser = await User.create(userData); //build in static method
-
-
-    //create a student
-    if (Object.keys(newUser).length) {
-        // set id , _id as user
-        console.log('this is New User:', newUser)
-        console.log("this is paylod:", payload)
-        payload.id = '2030100001' as string;
-        payload.user = newUser?._id; //reference _id
-
-
-
-        const newStudent = await Student.create(payload);
-        return newStudent;
-    }
 
 
 

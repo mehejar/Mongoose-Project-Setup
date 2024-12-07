@@ -8,7 +8,7 @@ const createAcademicFaculty = catchAsync(async (req, res) => {
 
     res.status(200).json({
         success: true,
-        message: "Student is Created",
+        message: "Academic Faculty is Created",
 
         date: result
     })
@@ -20,7 +20,7 @@ const getAllAcademicFaculty = catchAsync(async (req, res) => {
 
     res.status(200).json({
         success: true,
-        message: "Student is Created",
+        message: "Academic Faculties are retrieved",
 
         date: result
     })
@@ -33,7 +33,7 @@ const getAAcademicFaculty = catchAsync(async (req, res) => {
 
     res.status(200).json({
         success: true,
-        message: "Student is Created",
+        message: "Here is an Academic Faculty",
 
         date: result
     })
@@ -48,7 +48,7 @@ const updateAcademicFaculty = catchAsync(async (req, res) => {
 
     res.status(200).json({
         success: true,
-        message: "Student is Created",
+        message: "Academic Faculty Updated",
 
         date: result
     })

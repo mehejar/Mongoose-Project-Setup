@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import config from "../../config";
 import { TAcademicSemester } from "../academicSemester/academicSemester.interface";
 // import { TAcademicSemester } from "../academicSemester/academicSemester.interface";
@@ -7,6 +8,7 @@ import { Student } from "../student/student.model";
 import { TUser } from "./user.interface";
 import { User } from "./user.model";
 import { generateStudentId } from "./user.utils";
+import { AppError } from "../academicDepertment/academicDepertment.model";
 
 const createStudentIntoDB = async (password: string, payload: TStudent) => {
 
@@ -24,29 +26,39 @@ const createStudentIntoDB = async (password: string, payload: TStudent) => {
         payload.addmissionSemester,
     );
 
+    const session = await mongoose.startSession()
+
     try {
+        session.startTransaction()
         userData.id = await generateStudentId(admissionSemester as TAcademicSemester)
 
-        // create a user model
-        const newUser = await User.create(userData); //build in static method
+        // create a user 
+        const newUser = await User.create([userData], { session }); //build in static method
 
 
         //create a student
-        if (Object.keys(newUser).length) {
-            // set id , _id as user
-            console.log('this is New User:', newUser)
-            console.log("this is paylod:", payload)
-            payload.id = '2030100001' as string;
-            payload.user = newUser?._id; //reference _id
-
-
-
-            const newStudent = await Student.create(payload);
-            return newStudent;
+        if (!newUser.length) {
+            throw new AppError(404, 'not found')
         }
 
-    } catch (err) {
+        // set id , _id as user
+        payload.id = newUser[0].id as string;
+        payload.user = newUser[0]._id; //reference _id
 
+
+
+        const newStudent = await Student.create([payload], { session });
+        if (!newStudent) {
+            throw new AppError(500, 'Faild to create Student')
+        }
+
+        await session.commitTransaction()
+        await session.endSession()
+        return newStudent;
+
+    } catch (err) {
+        await session.abortTransaction()
+        await session.endSession()
     }
     //set  generated id
 

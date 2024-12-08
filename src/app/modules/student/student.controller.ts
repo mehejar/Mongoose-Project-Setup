@@ -29,8 +29,20 @@ const getSingleStudent: RequestHandler = catchAsync(async (req, res) => {
 
 })
 
+const updateStudentIntoDb = catchAsync(async (req, res) => {
+    const { studentId } = req.params;
+    const { student } = req.body
+    const result = await StudentServices.updateStudentIntoDb(studentId, student)
+    res.status(200).json({
+        success: true,
+        message: "Student updated successfully",
+        date: result
+    })
+})
+
 export const studentController = {
     getAllStudents,
     getSingleStudent,
+    updateStudentIntoDb
 
 }

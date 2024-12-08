@@ -7,5 +7,6 @@ const router = express.Router()
 
 router.get('/', studentController.getAllStudents)
 router.get('/:id', studentController.getSingleStudent)
+router.patch('/:id', studentController.updateStudentIntoDb)
 
 export const studentRoute = router;

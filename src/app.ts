@@ -1,12 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import express, { Application, NextFunction, Request, Response } from 'express'
+import express, { Application, Request, Response } from 'express'
 import cors from 'cors'
 import { studentRoute } from './app/modules/student/student.route'
 import { UserRoutes } from './app/modules/user/user.route'
 import { academicSemesterRoute } from './app/modules/academicSemester/academicSemester.route'
 import { AcademicFacultyRoutes } from './app/modules/academicFaculty/academicFaculty.routes'
 import { AcademicDepartmentRoutes } from './app/modules/academicDepertment/acdemicDepartment.routes'
-// import globalErrorHandler from './app/middlewares/globalErrorHandler'
+import globalErrorHandler from './app/middlewares/globalErrorHandler'
+
+
 const app: Application = express()
 // const port = 3000
 app.use(express.json())
@@ -26,7 +28,7 @@ export const getAController = (req: Request, res: Response) => {
 
 app.get('/', getAController)
 
-// app.use(globalErrorHandler);
+app.use(globalErrorHandler);
 
 
 

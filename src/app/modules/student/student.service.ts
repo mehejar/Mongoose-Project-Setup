@@ -8,7 +8,7 @@ import { TStudent } from "./student.interface";
 
 
 const getAllStudentsFromDb = async () => {
-    const result = await Student.find().populate('academicFaculty');
+    const result = await Student.find()
     return result;
 }
 
@@ -98,6 +98,7 @@ const deleteStudentFromDB = async (id: string) => {
     } catch (err) {
         await session.abortTransaction()
         await session.endSession()
+        console.log(err)
     }
 
 }

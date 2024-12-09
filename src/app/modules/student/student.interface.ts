@@ -13,6 +13,11 @@ export type TLocalGuardian = {
 
 }
 
+export type TErrorSource = {
+    path: string | number;
+    message: string
+}[];
+
 
 
 export type TUser = {

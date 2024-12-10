@@ -59,6 +59,7 @@ const createStudentIntoDB = async (password: string, payload: TStudent) => {
     } catch (err) {
         await session.abortTransaction()
         await session.endSession()
+        console.log(err)
     }
     //set  generated id
 

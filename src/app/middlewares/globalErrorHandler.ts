@@ -53,6 +53,7 @@ const globalErrorHandler = (
     // }
 
     res.status(statusCode).json({
+
         success: false,
         message,
         errorSources,

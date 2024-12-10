@@ -14,7 +14,6 @@ const createStudent = catchAsync(async (req, res) => {  // ZOD Valiator Schema
     res.status(200).json({
         success: true,
         message: "Student is Created",
-
         date: result
     })
 })

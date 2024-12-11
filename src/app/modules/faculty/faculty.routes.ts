@@ -1,10 +1,20 @@
 import express from "express"
-import { facultyController } from "./faculty.controller"
+import { FacultyControllers } from "./faculty.controller";
+import validRequest from "../../middlewares/validRequest";
+import { facultyValidations } from "./faculty.validation";
 
-const router = express.Router()
+const router = express.Router();
 
-// will call controller file
+router.get('/:id', FacultyControllers.getSingleFaculty);
 
-router.get('/', facultyController.getAllFaculty)
+router.patch(
+    '/:id',
+    validRequest(facultyValidations.updateFacultyValidationSchema),
+    FacultyControllers.updateFaculty,
+);
 
-export const facultyRoute = router;
+router.delete('/:id', FacultyControllers.deleteFaculty);
+
+router.get('/', FacultyControllers.getAllFaculties);
+
+export const FacultyRoutes = router;

@@ -17,7 +17,35 @@ const createStudent = catchAsync(async (req, res) => {  // ZOD Valiator Schema
         date: result
     })
 })
+const createFaculty = catchAsync(async (req, res) => {  // ZOD Valiator Schema
+    const { password, faculty: facultyData } = req.body
+
+    // will cal service func to send this data
+    const result = await UserServices.createFacultyIntoDB(password, facultyData)
+
+    // send response
+    res.status(200).json({
+        success: true,
+        message: "Faculty is Created",
+        date: result
+    })
+})
+const createAdmin = catchAsync(async (req, res) => {  // ZOD Valiator Schema
+    const { password, admin: adminData } = req.body
+
+    // will cal service func to send this data
+    const result = await UserServices.createAdminIntoDB(password, adminData)
+
+    // send response
+    res.status(200).json({
+        success: true,
+        message: "Admin is Created",
+        date: result
+    })
+})
 
 export const UserController = {
-    createStudent
+    createStudent,
+    createFaculty,
+    createAdmin
 }

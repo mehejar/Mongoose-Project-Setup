@@ -1,4 +1,4 @@
-import { RequestHandler } from "express"
+import { query, RequestHandler } from "express"
 import { StudentServices } from "./student.service"
 import catchAsync from "../../utils/catchAssync"
 // import studentValidationSchema from "./student-zod-validation"
@@ -8,7 +8,7 @@ import catchAsync from "../../utils/catchAssync"
 
 const getAllStudents: RequestHandler = catchAsync(async (req, res) => {
 
-    const result = await StudentServices.getAllStudentsFromDb()
+    const result = await StudentServices.getAllStudentsFromDb({ query })
     res.status(200).json({
         success: true,
         message: "Students is Retrieve Successfully",

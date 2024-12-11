@@ -7,6 +7,8 @@ import { academicSemesterRoute } from './app/modules/academicSemester/academicSe
 import { AcademicFacultyRoutes } from './app/modules/academicFaculty/academicFaculty.routes'
 import { AcademicDepartmentRoutes } from './app/modules/academicDepertment/acdemicDepartment.routes'
 import globalErrorHandler from './app/middlewares/globalErrorHandler'
+import { facultyRoute } from './app/modules/faculty/faculty.routes'
+import { adminsRoute } from './app/modules/admin/admin.routes'
 
 
 const app: Application = express()
@@ -20,6 +22,8 @@ app.use('/api/v1/users', UserRoutes)
 app.use('/api/v1/academic-semester', academicSemesterRoute)
 app.use('/api/v1/academic-faculty', AcademicFacultyRoutes)
 app.use('/api/v1/academic-department', AcademicDepartmentRoutes)
+app.use('/api/v1/faculty', facultyRoute)
+app.use('/api/v1/admin', adminsRoute)
 
 
 export const getAController = (req: Request, res: Response) => {

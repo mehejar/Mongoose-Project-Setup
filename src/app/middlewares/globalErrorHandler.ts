@@ -57,7 +57,7 @@ const globalErrorHandler = (
         success: false,
         message,
         errorSources,
-        // error: err,
+        error: err,
 
     });
 };

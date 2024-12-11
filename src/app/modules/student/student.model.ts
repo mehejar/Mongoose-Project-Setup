@@ -4,7 +4,7 @@ import { TLocalGuardian, TStudent, TUser, } from './student.interface';
 
 
 // user Schema
-const userSchema = new Schema<TUser>({
+export const userSchema = new Schema<TUser>({
     firstName: {
         type: String, required: true,
         validate: {

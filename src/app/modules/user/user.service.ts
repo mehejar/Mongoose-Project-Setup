@@ -56,13 +56,13 @@ const createStudentIntoDB = async (password: string, payload: TStudent) => {
             throw new AppError(500, 'Faild to create Student')
         }
 
-        await session.commitTransaction()
-        await session.endSession()
+        session.commitTransaction()
+        session.endSession()
+
+
         return newStudent;
 
     } catch (err) {
-        await session.abortTransaction()
-        await session.endSession()
         console.log(err)
     }
 }

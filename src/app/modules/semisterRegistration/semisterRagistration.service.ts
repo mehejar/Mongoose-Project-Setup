@@ -45,7 +45,7 @@ const updateRegisteredSemester = async (id: string, payload: Partial<TSemisterRa
 
     const isRegisteredSemisterExist = await SemisterRagistration.findById(id)
     if (!isRegisteredSemisterExist) {
-        throw new AppError(404, 'Semester is not found')
+        throw new AppError(404, `Semester is not found ${isRegisteredSemisterExist}`)
     }
     // 
     const currentSemesterStatus = isRegisteredSemisterExist?.status
@@ -53,6 +53,21 @@ const updateRegisteredSemester = async (id: string, payload: Partial<TSemisterRa
     if (currentSemesterStatus === 'ENDED') {
         throw new AppError(400, 'Semester is already ended')
     }
+    const requestedStatus = payload.status
+
+    // Upcoming --> Ongoing --> ENDED
+    if (currentSemesterStatus === 'UPCOMING' && requestedStatus === "ENDED") {
+        throw new AppError(400, 'You Cannot update directly upcoming status to status ended')
+
+    }
+    // Ongoing --> ENDED
+    if (currentSemesterStatus === 'ONGOING' && requestedStatus === "UPCOMING") {
+        throw new AppError(400, 'You Cannot update directly ONGOING status to status UPCOMING')
+
+    }
+
+    const result = await SemisterRagistration.findByIdAndUpdate(id, payload, { new: true })
+    return result
 
 }
 

@@ -56,7 +56,7 @@ const updateACourse = async (_id: string, payload: Partial<TCourse>) => {
             // filter out the deleted fields
             const deletedPreRequisit = preRequisiteCourses.filter(el => el.course && el.isDeleted).map((el) => el.course)
 
-            const deletedPreRequisitCourses = await Course.findOneAndUpdate(_id,
+            const deletedPreRequisitCourses = await Course.findByIdAndUpdate(_id,
                 {
                     $pull: {
                         preRequisiteCourses: {

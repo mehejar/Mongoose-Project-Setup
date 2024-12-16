@@ -6,5 +6,6 @@ export type TSemisterRagistration = {
     startDate: Date;
     endDate: Date;
     minCredit: number;
-    maxCredit: number
+    maxCredit: number;
+
 }

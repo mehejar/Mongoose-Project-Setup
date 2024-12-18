@@ -11,6 +11,6 @@ const createOfferedCourse = catchAsync(async (req, res) => {
     })
 })
 
-export offeredCourseController = {
+export const offeredCourseController = {
     createOfferedCourse
 }

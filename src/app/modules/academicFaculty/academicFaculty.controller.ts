@@ -22,7 +22,7 @@ const getAllAcademicFaculty = catchAsync(async (req, res) => {
         success: true,
         message: "Academic Faculties are retrieved",
 
-        date: result
+        data: result
     })
 })
 
@@ -35,7 +35,7 @@ const getAAcademicFaculty = catchAsync(async (req, res) => {
         success: true,
         message: "Here is an Academic Faculty",
 
-        date: result
+        data: result
     })
 })
 

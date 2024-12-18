@@ -8,8 +8,8 @@ const router = express.Router()
 
 
 router.post('/create-academic-faculty', validRequest(AcademicValidation.academicFacultyValidation), academicFacultyController.createAcademicFaculty)
-router.get('/', validRequest(AcademicValidation.academicFacultyValidation), academicFacultyController.getAllAcademicFaculty)
-router.get('/:_id', validRequest(AcademicValidation.academicFacultyValidation), academicFacultyController.getAAcademicFaculty)
+router.get('/', academicFacultyController.getAllAcademicFaculty)
+router.get('/:_id', academicFacultyController.getAAcademicFaculty)
 
 
 

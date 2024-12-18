@@ -1,5 +1,6 @@
+import { Model } from "mongoose";
 
-export type TUser = {
+export interface TUser {
     id: string;
     password: string;
     needsPasswordChange: boolean;
@@ -8,6 +9,11 @@ export type TUser = {
     isDeleted: boolean;
 
 };
+
+export interface UserModel extends Model<TUser> {
+    // myStaticMethod(): number;
+    isUserExistByCustomId(id: string): Promise<TUser>
+}
 
 export type NewUser = {
     password: string;

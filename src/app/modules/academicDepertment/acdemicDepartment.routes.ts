@@ -15,6 +15,7 @@ router.post(
 
 router.get(
     '/:departmentId',
+
     AcademicDepartmentControllers.getSingleAcademicDepartment,
 );
 

@@ -7,7 +7,7 @@ const router = express.Router();
 
 
 router.post(
-    '/create-course',
+    '/login',
     validRequest(AuthValidation.loginValidationSchema), AuthController.loginUser,
 );
 

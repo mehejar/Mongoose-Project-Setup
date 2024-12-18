@@ -3,10 +3,7 @@ import { TAcademicDepertment } from "./academicDepertment.interface";
 
 const createAcademicDepartmentIntoDB = async (payload: TAcademicDepertment) => {
 
-    const isDepartmentExist = await AcademicDapartment.findOne({ name: payload.name })
-    if (isDepartmentExist) {
-        throw new Error('This Department is Exist')
-    }
+
 
     const result = await AcademicDapartment.create(payload);
     return result;

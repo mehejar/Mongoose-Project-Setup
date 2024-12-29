@@ -12,6 +12,18 @@ const loginUser = catchAsync(async (req, res) => {
     })
 })
 
+const forgetPassword = catchAsync(async (req, res) => {
+    const { userId } = req.body;
+    const result = await AuthServices.forgetPassword(userId);
+
+    res.status(200).json({
+        success: true,
+        message: "Yoou forget Successfully",
+        date: result
+    })
+});
+
 export const AuthController = {
-    loginUser
+    loginUser,
+    forgetPassword
 }

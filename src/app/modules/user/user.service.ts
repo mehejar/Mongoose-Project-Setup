@@ -13,6 +13,8 @@ import { TFaculty } from "../faculty/faculty.interface";
 import { Faculty } from "../faculty/faculty.model";
 import { Admin } from "../admin/admin.model";
 import { TAdmin } from "../admin/admin.interface";
+import { verifyToken } from "../Auth/auth.utils";
+import { JwtPayload } from "jsonwebtoken";
 
 const createStudentIntoDB = async (password: string, payload: TStudent) => {
 
@@ -24,6 +26,7 @@ const createStudentIntoDB = async (password: string, payload: TStudent) => {
 
     // set student role 
     userData.role = 'student'
+    userData.email = payload?.email;
 
 
     const admissionSemester = await Semester.findById(
@@ -77,6 +80,7 @@ const createFacultyIntoDB = async (password: string, payload: TFaculty) => {
 
     // set student role 
     userData.role = 'faculty'
+    userData.email = payload?.email;
 
 
     // const admissionSemester = await Semester.findById(
@@ -134,6 +138,7 @@ const createAdminIntoDB = async (password: string, payload: TAdmin) => {
 
     // set student role 
     userData.role = 'admin'
+    userData.email = payload?.email;
 
 
     // const admissionSemester = await Semester.findById(
@@ -177,14 +182,32 @@ const createAdminIntoDB = async (password: string, payload: TAdmin) => {
     }
     //set  generated id
 
+}
+
+const getMe = async (decoded: JwtPayload) => {
+
+    const { userId, role } = decoded
+
+    let result = null
+    console.log('Single User', userId, role)
+    if (role === 'student') {
+        result = await Student.findOne({ id: userId })
+    }
+    if (role === 'admin') {
+        result = await Admin.findOne({ id: userId })
+    }
+    if (role === 'faculty') {
+        result = await Faculty.findOne({ id: userId })
+    }
 
 
 
-
+    return result
 }
 
 export const UserServices = {
     createStudentIntoDB,
     createFacultyIntoDB,
-    createAdminIntoDB
+    createAdminIntoDB,
+    getMe
 }

@@ -23,6 +23,7 @@ const getAllFaculties = catchAsync(async (req, res) => {
 });
 
 const updateFaculty = catchAsync(async (req, res) => {
+
     const { id } = req.params;
     const { faculty } = req.body;
     const result = await FacultyServices.updateFacultyIntoDB(id, faculty);

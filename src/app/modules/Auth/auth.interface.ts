@@ -1,5 +1,10 @@
-export type TAuth = {
+/* eslint-disable @typescript-eslint/no-namespace */
+import { JwtPayload } from "jsonwebtoken";
 
-    id: string;
-    password: string
+declare global {
+    namespace Express {
+        interface Request {
+            user: JwtPayload
+        }
+    }
 }

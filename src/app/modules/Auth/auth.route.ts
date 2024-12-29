@@ -10,6 +10,11 @@ router.post(
     '/login',
     validRequest(AuthValidation.loginValidationSchema), AuthController.loginUser,
 );
+router.post(
+    '/forget-password',
+    validRequest(AuthValidation.forgetPasswordValidationSchema),
+    AuthController.forgetPassword,
+);
 
 
 export const AuthRoute = router

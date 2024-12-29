@@ -1,31 +1,41 @@
 import { NextFunction, Request, Response } from "express"
-import catchAsync from "../utils/catchAssync"
-import { AppError } from "../modules/academicDepertment/academicDepertment.model"
-import jwt from 'jsonwebtoken'
+import jwt, { JwtPayload } from 'jsonwebtoken'
 import config from "../config"
+import catchAsync from "../utils/catchAssync"
+import { TUserRole } from "../modules/user/constant"
 
-const auth = () => {
+
+const validateToken = (...requiredRoles: TUserRole[]) => {
     return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
 
         const token = req.headers.authorization
-        //if the token is sent from the client
-
         if (!token) {
-            throw new AppError(400, 'Youre not authorized User')
+            throw new Error('Unauthorized user')
         }
 
+        //check if the token is the verify token
         jwt.verify(token, config.jwt_access_secret as string, function (err, decoded) {
-
             if (err) {
-                throw new AppError(400, 'Youre not authorized User')
+                throw new Error('You are not authorized')
             }
-            // 
-            const { userId, role } = decoded
-            req.user = { userId, role }
-        })
 
+            const role = (decoded as JwtPayload)?.role
+
+            if (requiredRoles && !requiredRoles.includes(role)) {
+                throw new Error('You are not authorized')
+            }
+
+            req.user = decoded as JwtPayload
+        });
         next()
+
     })
+
+
+
+
 }
 
-export default auth
+
+
+export default validateToken

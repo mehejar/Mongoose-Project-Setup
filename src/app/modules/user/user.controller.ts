@@ -1,4 +1,5 @@
 import catchAsync from "../../utils/catchAssync"
+import { AppError } from "../academicDepertment/academicDepertment.model"
 import { UserServices } from "./user.service"
 // import studentValidationSchema from "../student/student-zod-validation"
 
@@ -44,8 +45,20 @@ const createAdmin = catchAsync(async (req, res) => {  // ZOD Valiator Schema
     })
 })
 
+const getMe = catchAsync(async (req, res) => {
+    const decoded = req.user
+
+    const result = await UserServices.getMe(decoded);
+    res.status(200).json({
+        success: true,
+        message: "Your Details is here",
+        date: result
+    })
+})
+
 export const UserController = {
     createStudent,
     createFaculty,
-    createAdmin
+    createAdmin,
+    getMe
 }

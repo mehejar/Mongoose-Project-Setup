@@ -1,5 +1,4 @@
 import catchAsync from "../../utils/catchAssync"
-import { AppError } from "../academicDepertment/academicDepertment.model"
 import { UserServices } from "./user.service"
 // import studentValidationSchema from "../student/student-zod-validation"
 

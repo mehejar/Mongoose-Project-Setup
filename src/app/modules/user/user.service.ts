@@ -13,7 +13,6 @@ import { TFaculty } from "../faculty/faculty.interface";
 import { Faculty } from "../faculty/faculty.model";
 import { Admin } from "../admin/admin.model";
 import { TAdmin } from "../admin/admin.interface";
-import { verifyToken } from "../Auth/auth.utils";
 import { JwtPayload } from "jsonwebtoken";
 
 const createStudentIntoDB = async (password: string, payload: TStudent) => {
